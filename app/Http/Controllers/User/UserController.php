@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Helpers\Help;
+use App\Helpers\Popcorn;
 use Illuminate\View\View;
 
 class UserController
 {
     public function __invoke(string $username): View
     {
-        $user = Help::get('users/'.$username);
+        $user = Popcorn::get('users/'.$username);
 
         abort_unless(isset($user['data']), 404);
 

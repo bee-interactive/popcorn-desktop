@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Search;
 
-use App\Helpers\Help;
+use App\Helpers\Popcorn;
 use Flux\Flux;
 use LivewireUI\Modal\ModalComponent;
 
@@ -33,7 +33,7 @@ class SaveForLater extends ModalComponent
             'watched' => false,
         ];
 
-        Help::post('items', $data);
+        Popcorn::post('items', $data);
 
         $this->dispatch('data-updated');
 

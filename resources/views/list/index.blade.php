@@ -1,4 +1,4 @@
-<x-layouts.app :title="__('Trending')">
+<x-layouts.app :title="$wishlist->name">
     <div>
         <flux:heading size="xl" level="1">{{ $wishlist->name }}</flux:heading>
 

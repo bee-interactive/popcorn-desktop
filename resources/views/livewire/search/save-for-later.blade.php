@@ -9,7 +9,7 @@
         <div class="space-y-6">
             <div>
                 <flux:select label="{{ __('Choose a list and save this entry.') }}" wire:model="wishlist" variant="listbox" placeholder="Choose wishlist...">
-                    @foreach(App\Helpers\Help::get('wishlists')['data'] as $wishlist)
+                    @foreach(App\Helpers\Popcorn::get('wishlists')['data'] as $wishlist)
                         <flux:select.option value="{{ $wishlist->uuid }}">{{ $wishlist->name }}</flux:select.option>
                     @endforeach
                 </flux:select>

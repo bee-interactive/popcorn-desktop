@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Settings;
 
-use App\Helpers\Help;
+use App\Helpers\Popcorn;
 use Livewire\Component;
 
 class Profile extends Component
@@ -63,7 +63,7 @@ class Profile extends Component
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
         ]);
 
-        $user = Help::patch('users/'.$this->uuid, ['data' => $datas]);
+        $user = Popcorn::patch('users/'.$this->uuid, ['data' => $datas]);
 
         session(['app-user' => [
             'uuid' => $this->uuid,

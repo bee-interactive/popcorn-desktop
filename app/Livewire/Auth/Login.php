@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Auth;
 
-use App\Helpers\Help;
+use App\Helpers\Popcorn;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\RateLimiter;
@@ -41,7 +41,7 @@ class Login extends Component
             $token = json_decode($response->body())->success->token;
             session(['app-access-token' => $token]);
 
-            $user = Help::post('users/me', $token);
+            $user = Popcorn::post('users/me', $token);
 
             session(['app-user' => [
                 'uuid' => $user['data']->uuid,

@@ -17,6 +17,8 @@ class Item extends Component
     #[On('mark-as-viewed')]
     public function render()
     {
-        return view('livewire.item.item');
+        return view('livewire.item.item', [
+            'item' => $this->item,
+        ]);
     }
 }

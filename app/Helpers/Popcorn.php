@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 use Illuminate\Support\Facades\Http;
 
-class Help
+class Popcorn
 {
     public static function get($url = '', $token = null, $params = null)
     {
@@ -39,6 +39,19 @@ class Help
         }
 
         $response = Http::acceptJson($token)->withToken($token)->patch(config('services.api.url').$url, $params);
+
+        $data = json_decode($response->body());
+
+        return collect($data);
+    }
+
+    public static function delete($url, $params = null)
+    {
+        if (session('app-access-token')) {
+            $token = session('app-access-token');
+        }
+
+        $response = Http::acceptJson($token)->withToken($token)->delete(config('services.api.url').$url, $params);
 
         $data = json_decode($response->body());
 

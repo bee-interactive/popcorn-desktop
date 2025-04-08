@@ -2,8 +2,7 @@
 
 namespace App\Livewire\Settings;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use App\Helpers\Popcorn;
 use Illuminate\Validation\Rules\Password as PasswordRule;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
@@ -23,7 +22,6 @@ class Password extends Component
     {
         try {
             $validated = $this->validate([
-                'current_password' => ['required', 'string', 'current_password'],
                 'password' => ['required', 'string', PasswordRule::defaults(), 'confirmed'],
             ]);
         } catch (ValidationException $e) {
@@ -32,11 +30,9 @@ class Password extends Component
             throw $e;
         }
 
-        Auth::user()->update([
-            'password' => Hash::make($validated['password']),
+        Popcorn::post('users/password', [
+            'password' => $validated['password'],
         ]);
-
-        $this->reset('current_password', 'password', 'password_confirmation');
 
         $this->dispatch('password-updated');
     }

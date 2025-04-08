@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\List;
 
-use App\Helpers\Help;
+use App\Helpers\Popcorn;
 use Illuminate\View\View;
 
 class ListController
 {
     public function __invoke(string $uuid): View
     {
-        $wishlist = Help::get('wishlists/'.$uuid);
+        $wishlist = Popcorn::get('wishlists/'.$uuid);
 
         return view('list.index', [
             'wishlist' => $wishlist['data'],

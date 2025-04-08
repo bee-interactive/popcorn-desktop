@@ -3,7 +3,7 @@
 ])
 
 @if(session('app-user')['tmdb_token'])
-    @if(!App\Helpers\Help::get('wishlists')['data'])
+    @if(!App\Helpers\Popcorn::get('wishlists')['data'])
         <flux:callout icon="exclamation-triangle">
             <flux:callout.heading>{{ __('You don’t have any list yet') }}</flux:callout.heading>
             <flux:callout.text>{{ __('Create your first one by clicking on the button below') }}</flux:callout.text>

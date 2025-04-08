@@ -9,7 +9,7 @@
         </div>
 
         <flux:sidebar sticky stashable class="border-r border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
-            <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
+            <flux:sidebar.toggle class="lg:hidden !bg-gray-100" icon="x-mark" />
 
             <div class="pt-6">
                 <a href="{{ route('dashboard') }}" class="mr-5 flex items-center space-x-2" wire:navigate>

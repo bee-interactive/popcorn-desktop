@@ -74,12 +74,12 @@
         @endif
     </flux:command>
 
-    @if(App\Helpers\Help::get('items') && $layout !== 'minimal')
+    @if(App\Helpers\Popcorn::get('items')['data'] && $layout !== 'minimal')
         <div class="mt-12">
             <flux:separator text="{{ __('Recents additions') }}" />
 
             <div class="grid grid-cols-2 gap-2 gap-y-6 lg:gap-y-4 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 lg:gap-4 pt-4">
-                @foreach(App\Helpers\Help::get('items')['data'] as $item)
+                @foreach(App\Helpers\Popcorn::get('items')['data'] as $item)
                     <livewire:item.item :item="$item" :key="$item->uuid" />
                 @endforeach
             </div>
