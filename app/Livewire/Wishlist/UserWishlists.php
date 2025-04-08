@@ -3,8 +3,8 @@
 namespace App\Livewire\Wishlist;
 
 use App\Helpers\Help;
-use Livewire\Component;
 use Livewire\Attributes\On;
+use Livewire\Component;
 
 class UserWishlists extends Component
 {

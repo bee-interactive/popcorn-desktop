@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Models\User;
+use App\Helpers\Help;
 use Illuminate\View\View;
 
 class UserController
 {
-    public function __invoke(User $user): View
+    public function __invoke(string $username): View
     {
-        abort_unless($user->public_profile, 404);
+        $user = Help::get('users/'.$username);
+
+        abort_unless(isset($user['data']), 404);
 
         return view('profile.show', [
-            'user' => $user,
+            'user' => $user['data'],
         ]);
     }
 }

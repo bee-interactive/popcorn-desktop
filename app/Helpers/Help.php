@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Http;
 
 class Help
 {
-    static function get($url = '', $token = null, $params = null)
+    public static function get($url = '', $token = null, $params = null)
     {
         if (session('app-access-token')) {
             $token = session('app-access-token');
@@ -19,7 +19,7 @@ class Help
         return collect($data);
     }
 
-    static function post($url, $params = null)
+    public static function post($url, $params = null)
     {
         if (session('app-access-token')) {
             $token = session('app-access-token');
@@ -32,7 +32,7 @@ class Help
         return collect($data);
     }
 
-    static function patch($url, $params = null)
+    public static function patch($url, $params = null)
     {
         if (session('app-access-token')) {
             $token = session('app-access-token');

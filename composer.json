@@ -18,6 +18,8 @@
         "livewire/volt": "^1.7.0",
         "nativephp/electron": "^1.0@beta",
         "pinkary-project/type-guard": "^0.1.0",
+        "saloonphp/laravel-plugin": "^3.5",
+        "saloonphp/saloon": "^3.11",
         "staudenmeir/eloquent-has-many-deep": "^1.21",
         "wire-elements/modal": "^2.0"
     },
