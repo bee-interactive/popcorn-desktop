@@ -1,9 +1,12 @@
 <?php
 
+namespace App\Helpers;
+
 use Illuminate\Support\Facades\Http;
 
-if (! function_exists('get')) {
-    function get($url = '', $token = null, $params = null)
+class Help
+{
+    static function get($url = '', $token = null, $params = null)
     {
         if (session('app-access-token')) {
             $token = session('app-access-token');
@@ -15,10 +18,8 @@ if (! function_exists('get')) {
 
         return collect($data);
     }
-}
 
-if (! function_exists('post')) {
-    function post($url, $params = null)
+    static function post($url, $params = null)
     {
         if (session('app-access-token')) {
             $token = session('app-access-token');
@@ -30,10 +31,8 @@ if (! function_exists('post')) {
 
         return collect($data);
     }
-}
 
-if (! function_exists('patch')) {
-    function patch($url, $params = null)
+    static function patch($url, $params = null)
     {
         if (session('app-access-token')) {
             $token = session('app-access-token');
