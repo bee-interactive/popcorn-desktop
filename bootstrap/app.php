@@ -4,7 +4,6 @@ use App\Http\Middleware\LocaleMiddleware;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Native\Laravel\Http\Middleware\PreventRegularBrowserAccess;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -17,7 +16,10 @@ return Application::configure(basePath: dirname(__DIR__))
             LocaleMiddleware::class,
         ]);
 
-        $middleware->append(PreventRegularBrowserAccess::class);
+        $middleware->validateCsrfTokens(except: [
+            'stripe/*',
+            'livewire/*',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

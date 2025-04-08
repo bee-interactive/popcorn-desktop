@@ -32,6 +32,7 @@ class NativeAppServiceProvider implements ProvidesPhpIni
     {
         return [
             'memory_limit' => '2048M',
+            'display_errors' => 1,
         ];
     }
 }
