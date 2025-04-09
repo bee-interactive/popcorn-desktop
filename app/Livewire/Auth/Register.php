@@ -2,10 +2,8 @@
 
 namespace App\Livewire\Auth;
 
-use App\Models\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use App\Helpers\Popcorn;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -14,6 +12,8 @@ use Livewire\Component;
 class Register extends Component
 {
     public string $name = '';
+
+    public string $username = '';
 
     public string $email = '';
 
@@ -24,20 +24,52 @@ class Register extends Component
     /**
      * Handle an incoming registration request.
      */
-    public function register(): void
+    public function register()
     {
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'username' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $validated['password'] = Hash::make($validated['password']);
+        try {
+            $call = Http::post(config('services.api.url').'auth/register', [
+                'name' => $validated['name'],
+                'username' => $validated['username'],
+                'email' => $validated['email'],
+                'password' => $validated['password'],
+            ]);
+        } catch (\Throwable $th) {
+            return redirect('/login');
+        }
 
-        event(new Registered(($user = User::create($validated))));
+        $response = Http::post(config('services.api.url').'auth/login', [
+            'email' => $validated['email'],
+            'password' => $validated['password'],
+        ]);
 
-        Auth::login($user);
+        if ($response->ok()) {
+            $token = json_decode($response->body())->success->token;
+            session(['app-access-token' => $token]);
 
-        $this->redirect(route('dashboard', absolute: false), navigate: true);
+            $user = Popcorn::post('users/me', $token);
+
+            session(['app-user' => [
+                'uuid' => $user['data']->uuid,
+                'name' => $user['data']->name,
+                'username' => $user['data']->username,
+                'description' => $user['data']->description,
+                'language' => $user['data']->language,
+                'email' => $user['data']->email,
+                'public_profile' => $user['data']->public_profile,
+                'tmdb_token' => $user['data']->tmdb_token,
+                'profile_picture' => $user['data']->profile_picture,
+            ]]);
+
+            return redirect('/');
+        } else {
+            return redirect('/login');
+        }
     }
 }
