@@ -11,7 +11,7 @@
 
                 @if($item->synopsis)
                     <div class="mt-4 border-t border-white/60 pt-4">
-                        <p class="text-accent-foreground text-sm">{!! str($item->synopsis)->limit(80) !!}</p>
+                        <flux:text>{!! str($item->synopsis)->limit(80) !!}</flux:text>
                     </div>
                 @endif
             </div>
@@ -19,7 +19,7 @@
             <div>
                 <div class="flex justify-between">
                     <div class="flex justify-start">
-                        <flux:button tooltip="{{ __('See details') }}" size="sm" icon="eye"></flux:button>
+                        <flux:button type="link" href="{{ route('items.show', ['uuid' => $item->uuid]) }}" tooltip="{{ __('See details') }}" size="sm" icon="eye"></flux:button>
                     </div>
 
                     @if(!$item->watched)
